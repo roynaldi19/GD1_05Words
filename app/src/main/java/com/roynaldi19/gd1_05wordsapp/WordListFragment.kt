@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.example.wordsapp
+package com.roynaldi19.gd1_05wordsapp
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -22,7 +22,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.wordsapp.databinding.FragmentWordListBinding
+import com.roynaldi19.gd1_05wordsapp.databinding.FragmentWordListBinding
 
 /**
  * Displays a [RecyclerView] of words with search buttons to look them up.

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.example.wordsapp
+package com.roynaldi19.gd1_05wordsapp
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -27,7 +27,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.wordsapp.databinding.FragmentLetterListBinding
+import com.roynaldi19.gd1_05wordsapp.databinding.FragmentLetterListBinding
 
 /**
  * Entry fragment for the app. Displays a [RecyclerView] of letters.

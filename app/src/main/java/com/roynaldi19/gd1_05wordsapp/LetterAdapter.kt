@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.example.wordsapp
+package com.roynaldi19.gd1_05wordsapp
 
 import android.os.Build
 import android.view.LayoutInflater

@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.example.wordsapp
+package com.roynaldi19.gd1_05wordsapp
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupActionBarWithNavController
-import com.example.wordsapp.databinding.ActivityMainBinding
+import com.roynaldi19.gd1_05wordsapp.databinding.ActivityMainBinding
 
 /**
  * Main Activity and entry point for the app.
