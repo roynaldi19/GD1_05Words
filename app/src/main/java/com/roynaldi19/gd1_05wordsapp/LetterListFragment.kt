@@ -24,18 +24,26 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.asLiveData
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.roynaldi19.gd1_05wordsapp.data.SettingsDataStore
+import com.roynaldi19.gd1_05wordsapp.data.dataStore
 import com.roynaldi19.gd1_05wordsapp.databinding.FragmentLetterListBinding
+import kotlinx.coroutines.launch
+
+private const val GRIDVIEW_SPAN_COUNT = 4
 
 class LetterListFragment : Fragment() {
     private var _binding: FragmentLetterListBinding? = null
-
     private val binding get() = _binding!!
 
     private lateinit var recyclerView: RecyclerView
     private var isLinearLayoutManager = true
+
+    private lateinit var layoutDataStore: SettingsDataStore
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,7 +62,14 @@ class LetterListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         recyclerView = binding.recyclerView
-        chooseLayout()
+        layoutDataStore = SettingsDataStore(requireContext().dataStore)
+
+        layoutDataStore.preferenceFlow.asLiveData().observe(viewLifecycleOwner) { }
+        layoutDataStore.preferenceFlow.asLiveData().observe(viewLifecycleOwner) { value ->
+            isLinearLayoutManager = value
+            chooseLayout()
+            activity?.invalidateOptionsMenu()
+        }
     }
 
     override fun onDestroyView() {
@@ -64,7 +79,6 @@ class LetterListFragment : Fragment() {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.layout_menu, menu)
-
         val layoutButton = menu.findItem(R.id.action_switch_layout)
         setIcon(layoutButton)
     }
@@ -73,7 +87,7 @@ class LetterListFragment : Fragment() {
         if (isLinearLayoutManager) {
             recyclerView.layoutManager = LinearLayoutManager(context)
         } else {
-            recyclerView.layoutManager = GridLayoutManager(context, 4)
+            recyclerView.layoutManager = GridLayoutManager(context, GRIDVIEW_SPAN_COUNT)
         }
         recyclerView.adapter = LetterAdapter()
     }
@@ -92,11 +106,17 @@ class LetterListFragment : Fragment() {
         return when (item.itemId) {
             R.id.action_switch_layout -> {
                 isLinearLayoutManager = !isLinearLayoutManager
+
+                lifecycleScope.launch {
+                    layoutDataStore.saveLayoutToPreferencesStore(isLinearLayoutManager, requireContext())
+                }
+
                 chooseLayout()
                 setIcon(item)
 
                 return true
             }
+
             else -> super.onOptionsItemSelected(item)
         }
     }
